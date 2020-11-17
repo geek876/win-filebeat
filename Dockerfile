@@ -11,12 +11,12 @@ RUN echo "%BEAT_VERSION%"
 
 RUN pwsh.exe -Command \
     $ErrorActionPreference = 'Stop' ; \
-    Invoke-WebRequest -Method Get -Uri https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$env:BEAT_VERSION-windows-$env:ARCH.zip -OutFile "C:\Program` Files\filebeat-$env:BEAT_VERSION-windows-$env:ARCH.zip" ; \
-    Expand-Archive -Path "C:\Program` Files\filebeat-$env:BEAT_VERSION-windows-$env:ARCH.zip" -DestinationPath 'C:\Program Files' ; \
-    Remove-Item "C:\Program` Files\filebeat-$env:BEAT_VERSION-windows-$env:ARCH.zip" -Force
+    Invoke-WebRequest -Method Get -Uri https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$env:BEAT_VERSION-windows-$env:ARCH.zip -OutFile "C:\Program` Files\filebeat.zip" ; \
+    Expand-Archive -Path "C:\Program` Files\filebeat.zip" -DestinationPath 'C:\Program Files' ; \
+    Remove-Item "C:\Program` Files\filebeat.zip" -Force
 
-COPY ["entrypoint.ps1", "C:/Program Files/filebeat-${BEAT_VERSION}-windows-${ARCH}"]
+COPY ["entrypoint.ps1", "C:/Program Files/filebeat"]
 
-WORKDIR "C:\Program Files\filebeat-${BEAT_VERSION}-windows-${ARCH}"
+WORKDIR "C:\Program Files\filebeat"
 
 CMD ["pwsh.exe", "entrypoint.ps1"]
