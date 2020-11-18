@@ -13,6 +13,7 @@ RUN pwsh.exe -Command \
     $ErrorActionPreference = 'Stop' ; \
     Invoke-WebRequest -Method Get -Uri https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$env:BEAT_VERSION-windows-$env:ARCH.zip -OutFile "C:\Program` Files\filebeat.zip" ; \
     Expand-Archive -Path "C:\Program` Files\filebeat.zip" -DestinationPath 'C:\Program Files' ; \
+    Rename-Item "C:\Program` Files\filebeat-$env:BEAT_VERSION-windows-$env:ARCH" "C:\Program` Files\filebeat" ; \
     Remove-Item "C:\Program` Files\filebeat.zip" -Force
 
 COPY ["entrypoint.ps1", "C:/Program Files/filebeat"]
